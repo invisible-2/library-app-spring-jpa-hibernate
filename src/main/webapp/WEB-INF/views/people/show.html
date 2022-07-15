@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaft.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+
+    <p th:text="${person.getFullName() + ', ' + person.getBirthYear()}">VALUE</p>
+    <br><hr>
+
+    <b th:if="${#lists.size(books) != 0}"> Books:</b>
+    <div th:if="${#lists.size(books) != 0}" th:each="book : ${books}">
+       <li th:style="${book.isOverdue() ? 'color:red' : 'color:black'}" th:text="${book.getTitle() + ',  ' + book.getAuthor() + ',  ' + book.getYear()}"></li>
+    </div>
+
+    <div th:unless="${#lists.size(books) != 0}">
+        <p>Person don't have books.</p>
+      </div>
+   
+
+    <br><hr>
+    <form  th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
+        <button type="submit">Edit</button>
+    </form>
+
+    <br>
+    <form  th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+        <button type="submit">Delete</button>
+    </form>
+
+</body>
+</html>
